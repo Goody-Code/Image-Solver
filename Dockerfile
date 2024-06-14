@@ -2,10 +2,10 @@
 FROM python:3.9-slim
 
 # تحديد دليل العمل داخل الحاوية
-WORKDIR /app
+WORKDIR /Image-Solver
 
 # نسخ محتويات الدليل الحالي إلى دليل العمل في الحاوية
-COPY . /app
+COPY . /Image-Solver
 
 # تثبيت الحزم المطلوبة والمذكورة في requirements.txt
 RUN apt-get update && apt-get install -y \
