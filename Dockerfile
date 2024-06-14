@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     libssl-dev \
     && pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r requirements.txt \
     && pip install transformers
 
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
