@@ -16,5 +16,8 @@ RUN apt-get update && apt-get install -y \
     && pip install -r requirements.txt \
     && pip install transformers
 
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
 # الأمر الذي يتم تنفيذه عند تشغيل الحاوية
 CMD ["python", "bot.py"]
