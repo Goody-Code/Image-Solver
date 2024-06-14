@@ -1,4 +1,10 @@
+import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from huggingface_hub import HfApi
+
+api = HfApi()
+token = os.getenv("HUGGINGFACE_TOKEN")
+api.login(token)
 
 model_name = "EleutherAI/gpt-neox-1.3B"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
