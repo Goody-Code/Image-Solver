@@ -27,11 +27,16 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.photo, handle_image))
     
-    # إعداد webhook
+    # تحديد البورت
+    port = int(os.environ.get('PORT', 8080))
+    
+    # إعدادات الـ Webhook
     updater.start_webhook(listen="0.0.0.0",
-                          port=int(os.environ.get('PORT', 8080)),
-                          url_path=TELEGRAM_API_TOKEN)
-    updater.bot.set_webhook(WEBHOOK_URL + TELEGRAM_API_TOKEN)
+                          port=port,
+                          url_path=TELEGRAM_API_TOKEN,
+                          webhook_url=f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}")
+    
+    updater.bot.set_webhook(f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}")
     
     updater.idle()
 
