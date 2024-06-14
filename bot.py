@@ -29,7 +29,7 @@ def main():
     
     # إعداد webhook
     updater.start_webhook(listen="0.0.0.0",
-                          port=int(os.environ.get('PORT', 5000)),
+                          port=int(os.environ.get('PORT', 8080)),
                           url_path=TELEGRAM_API_TOKEN)
     updater.bot.set_webhook(WEBHOOK_URL + TELEGRAM_API_TOKEN)
     
