@@ -16,5 +16,9 @@ RUN apt-get update && apt-get install -y \
     && pip install -r requirements.txt \
     && pip install transformers
 
+EXPOSE 10000
+
+ENV PORT 10000
+
 # الأمر الذي يتم تنفيذه عند تشغيل الحاوية
 CMD ["python", "bot.py"]
