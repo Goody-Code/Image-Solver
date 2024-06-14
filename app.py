@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request
-from urllib.parse import quote
 from telegram import Bot, Update
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Filters
 from image_processing import extract_text_from_image
