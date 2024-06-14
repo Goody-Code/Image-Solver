@@ -1,6 +1,7 @@
 import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from huggingface_hub import HfApi
+from config import HUGGINGFACE_TOKEN, HUGGING_FACE_API_ENDPOINT
 
 api = HfApi()
 token = os.getenv("HUGGINGFACE_TOKEN")
