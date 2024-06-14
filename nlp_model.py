@@ -1,8 +1,8 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "gpt2"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
+model_name = "EleutherAI/gpt-neox-1.3B"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
 
 def solve_question(question):
     inputs = tokenizer.encode(question, return_tensors="pt")
