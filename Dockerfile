@@ -12,4 +12,4 @@ RUN apt-get update && apt-get install -y \
     && pip install -r requirements.txt \
     && pip install transformers
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]
