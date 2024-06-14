@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from image_processing import extract_text_from_image
 from nlp_model import solve_question
-from config import TELEGRAM_API_TOKEN, WEBHOOK_URL
+from config import TELEGRAM_API_TOKEN
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('أرسل صورة السؤال الذي تريد حله.')
@@ -21,24 +21,13 @@ def handle_image(update: Update, context: CallbackContext) -> None:
     os.remove(file_path)  # حذف الصورة بعد المعالجة
 
 def main():
-    updater = Updater(TELEGRAM_API_TOKEN, use_context=True)
+    updater = Updater(TELEGRAM_API_TOKEN)
     dispatcher = updater.dispatcher
     
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.photo, handle_image))
     
-    # تحديد البورت
-    port = int(os.environ.get('PORT', 8080))
-    
-    # إعدادات الـ Webhook
-    webhook_url = f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}"
-    updater.start_webhook(listen="0.0.0.0",
-                          port=port,
-                          url_path=TELEGRAM_API_TOKEN,
-                          webhook_url=webhook_url)
-    
-    updater.bot.set_webhook(webhook_url)
-    
+    updater.start_polling()
     updater.idle()
 
 if __name__ == '__main__':
