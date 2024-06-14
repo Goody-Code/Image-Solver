@@ -31,12 +31,13 @@ def main():
     port = int(os.environ.get('PORT', 8080))
     
     # إعدادات الـ Webhook
+    webhook_url = f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}"
     updater.start_webhook(listen="0.0.0.0",
                           port=port,
                           url_path=TELEGRAM_API_TOKEN,
-                          webhook_url=f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}")
+                          webhook_url=webhook_url)
     
-    updater.bot.set_webhook(f"{WEBHOOK_URL}/{TELEGRAM_API_TOKEN}")
+    updater.bot.set_webhook(webhook_url)
     
     updater.idle()
 
