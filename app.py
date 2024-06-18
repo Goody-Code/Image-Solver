@@ -1,41 +1,34 @@
-import os
+import logging
 from flask import Flask, request
-from telegram import Bot, Update
+from telegram import Update, Bot
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Filters
-from image_processing import extract_text_from_image
-from nlp_model import solve_question
-from config import TELEGRAM_API_TOKEN, WEBHOOK_URL
+from config import TELEGRAM_TOKEN
+from image_processing import process_image
 
 app = Flask(__name__)
-bot = Bot(token=TELEGRAM_API_TOKEN)
-dispatcher = Dispatcher(bot, None, use_context=True)
+bot = Bot(token=TELEGRAM_TOKEN)
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+@app.route(f'/{TELEGRAM_TOKEN}', methods=['POST'])
+def webhook():
+    update = Update.de_json(request.get_json(), bot)
+    dispatcher.process_update(update)
+    return 'ok'
 
 def start(update, context):
-    update.message.reply_text('أرسل صورة السؤال الذي تريد حله.')
+    update.message.reply_text('مرحبًا! أرسل لي صورة تحتوي على الأسئلة أو التمارين.')
 
 def handle_image(update, context):
-    photo = update.message.photo[-1].get_file()
-    file_path = f'images/{photo.file_id}.jpg'
-    photo.download(file_path)
-    
-    extracted_text = extract_text_from_image(file_path)
-    answer = solve_question(extracted_text)
-    
-    update.message.reply_text(f'السؤال: {extracted_text}\n\nالحل: {answer}')
-    
-    os.remove(file_path)  # حذف الصورة بعد المعالجة
+    photo_file = update.message.photo[-1].get_file()
+    response_text = process_image(photo_file)
+    update.message.reply_text(response_text)
 
+dispatcher = Dispatcher(bot, None, use_context=True)
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(MessageHandler(Filters.photo, handle_image))
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    if request.method == "POST":
-        update = Update.de_json(request.get_json(force=True), bot)
-        dispatcher.process_update(update)
-    return "ok"
-
-if __name__ == "__main__":
-    from os import environ
-    port = int(environ.get('PORT', 10000))
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 8443))
     app.run(host='0.0.0.0', port=port)
