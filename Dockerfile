@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y \
 ENV PATH="/opt/venv/bin:$PATH"
 
 # الأوامر لتشغيل التطبيق
-CMD ["gunicorn", "--bind", "0.0.0.0:8443", "--timeout", "300", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8443", "--timeout", "600", "app:app"]
