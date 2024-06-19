@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && python -m venv /opt/venv \
     && /opt/venv/bin/pip install --upgrade pip \
-    && /opt/venv/bin/pip install -r requirements.txt \
+    && /opt/venv/bin/pip install -r requirements.txt
 
 # تحميل النموذج أثناء بناء الصورة
 RUN /opt/venv/bin/python download_model.py
