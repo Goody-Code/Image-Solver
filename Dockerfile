@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
     && python -m venv /opt/venv \
     && /opt/venv/bin/pip install --upgrade pip \
     && /opt/venv/bin/pip install -r requirements.txt \
-    && /opt/venv/bin/python download_model.py
+
+# تحميل النموذج أثناء بناء الصورة
+RUN /opt/venv/bin/python download_model.py
 
 # إعداد البيئة الافتراضية كبيئة افتراضية افتراضية
 ENV PATH="/opt/venv/bin:$PATH"
