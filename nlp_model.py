@@ -7,7 +7,7 @@ qa_pipeline = pipeline(
     "question-answering", 
     model="/app/model", 
     tokenizer="distilbert-base-uncased-distilled-squad", 
-    use_auth_token=HUGGINGFACE_TOKEN
+    use_auth_token=HUGGINGFACE_TOKEN,
     api_endpoint=HUGGING_FACE_API_ENDPOINT
 )
 
