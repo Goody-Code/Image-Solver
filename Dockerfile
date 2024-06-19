@@ -21,4 +21,4 @@ RUN /opt/venv/bin/python download_model.py
 ENV PATH="/opt/venv/bin:$PATH"
 
 # الأوامر لتشغيل التطبيق
-CMD ["gunicorn", "--bind", "0.0.0.0:8443", "--timeout", "600", "app:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8443", "app:app"]
