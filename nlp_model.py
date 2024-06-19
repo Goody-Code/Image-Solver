@@ -2,12 +2,12 @@ import os
 from transformers import pipeline
 from config import HUGGINGFACE_TOKEN, HUGGING_FACE_API_ENDPOINT
 
-# تهيئة الأنابيب للإجابة على الأسئلة
+# تهيئة الأنابيب للإجابة على الأسئلة باستخدام النموذج المحمل محليًا
 qa_pipeline = pipeline(
     "question-answering", 
-    model="EleutherAI/gpt-neo-1.3B", 
-    tokenizer="EleutherAI/gpt-neo-1.3B", 
-    use_auth_token=HUGGINGFACE_TOKEN,
+    model="/app/model", 
+    tokenizer="distilbert-base-uncased-distilled-squad", 
+    use_auth_token=HUGGINGFACE_TOKEN
     api_endpoint=HUGGING_FACE_API_ENDPOINT
 )
 
