@@ -10,6 +10,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && pip install --upgrade pip \
     && pip install -r requirements.txt \
-    && pip install transformers
+    && pip install transformers==4.28.0
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8443", "app:app"]
