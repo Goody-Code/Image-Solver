@@ -1,14 +1,13 @@
-import os
+import re
 from transformers import pipeline
-from config import HUGGINGFACE_TOKEN, HUGGING_FACE_API_ENDPOINT
+from config import HUGGINGFACE_TOKEN
 
 # تهيئة الأنابيب للإجابة على الأسئلة باستخدام النموذج المحمل محليًا
 qa_pipeline = pipeline(
     "question-answering", 
     model="/app/model", 
     tokenizer="distilbert-base-uncased-distilled-squad", 
-    use_auth_token=HUGGINGFACE_TOKEN,
-    api_endpoint=HUGGING_FACE_API_ENDPOINT
+    use_auth_token=HUGGINGFACE_TOKEN
 )
 
 def generate_response(cleaned_text: str) -> str:
